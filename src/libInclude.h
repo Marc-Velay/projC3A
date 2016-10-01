@@ -18,7 +18,7 @@
 #define CAR_HEIGHT 50
 #define CAR_WIDTH 95
 
-#define MAX_SPEED 170
+#define MAX_SPEED 400
 #define MIN_SPEED 100
 #define MAX_NB_CARS 20
 #define MAX_LINES 5

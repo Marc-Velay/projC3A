@@ -287,9 +287,9 @@ void delay(unsigned int frameLimit)     // Limite le nombre de frames par second
 		return;
 	}
 
-	if (frameLimit > ticks + 16)
+	if (frameLimit > ticks + 12)
 	{
-		SDL_Delay(16);
+		SDL_Delay(12);
 	}
 
 	else

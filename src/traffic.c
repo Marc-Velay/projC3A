@@ -27,7 +27,7 @@ void initCar(int selectedLine) {
     
     Game.Traffic[Game.firstFreeID].y= FIRST_LANE + LANE_WIDTH*selectedLine;
     Game.Traffic[Game.firstFreeID].x= SCREEN_WIDTH + CAR_HEIGHT*3/2;
-    Game.Traffic[Game.firstFreeID].speed = (rand()%2)+9+(2-selectedLine);
+    Game.Traffic[Game.firstFreeID].speed = (rand()%2)+7+(2-selectedLine);
     Game.Traffic[Game.firstFreeID].active = 1;
     if(Game.nbActiveCars%2 == 0) {
             Game.Traffic[Game.firstFreeID].sprite = getSprite(CAR1);
