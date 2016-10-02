@@ -5,7 +5,7 @@
 int isLineClear( int selectedLine) {
     for(int i = 0; i < MAX_NB_CARS; i++) {
             if(Game.Traffic[i].active == 1) {
-                    if(Game.Traffic[i].y == (FIRST_LANE + LANE_WIDTH*selectedLine) && Game.Traffic[i].x >= (SCREEN_WIDTH - CAR_WIDTH*3/2)) {
+                    if(Game.Traffic[i].y == (FIRST_LANE + LANE_WIDTH*selectedLine) && Game.Traffic[i].x >= (SCREEN_WIDTH - CAR_WIDTH) && Game.Traffic[i].x <= (SCREEN_WIDTH - CAR_WIDTH*6/2)) {
                             return 0;
                     }
             } else {
@@ -79,7 +79,8 @@ void addCars() {
     
     if(Game.nbActiveCars < MAX_NB_CARS) {
                 selectedLine = rand() %MAX_LINES;
-                if(isLineClear(selectedLine) == 1) {
+                if(isLineClear(selectedLine) == 1 && selectedLine != Game.lastLanePoped) {
+                        Game.lastLanePoped = selectedLine;
                         initCar(selectedLine);
                 }
     }
@@ -93,7 +94,12 @@ void moveTraffic() {
                 Game.Traffic[carID].x -= ((Game.Player.speed +5)/10 - Game.Traffic[carID].speed);
                 
                 if(Game.Traffic[carID].x <= -5*CAR_WIDTH || Game.Traffic[carID].x >= SCREEN_WIDTH + 5*CAR_WIDTH) {
-                    killcar(carID);
+                    if(Game.Traffic[carID].x < 0) {
+                        Game.score += 50;
+                    } else {
+                        Game.score -= 100;
+                    }
+                    killcar(carID);                    
                 } else {
                     collision(carID);
                 }

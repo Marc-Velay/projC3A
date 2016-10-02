@@ -270,6 +270,11 @@ void drawInterface() {    // Affichage de l'interface d'information sur la carte
         sprintf(string,"%d", Game.Player.speed);
         drawText("Speed: ", 50, 25, Game.textFont,196,154,108);
         drawText(string, 100, 25, Game.textFont,196,154,108);
+
+        sprintf(string,"%d", Game.score);
+        drawText("Score: ", 50, 50, Game.textFont,196,154,108);
+        drawText(string, 100, 50, Game.textFont,196,154,108);
+
         sprintf(string,"%d", Game.nbActiveCars);
         drawText("NB cars active: ", 50, 75, Game.textFont,196,154,108);
         drawText(string, 150, 75, Game.textFont,196,154,108);
@@ -287,9 +292,9 @@ void delay(unsigned int frameLimit)     // Limite le nombre de frames par second
 		return;
 	}
 
-	if (frameLimit > ticks + 12)
+	if (frameLimit > ticks + 32)
 	{
-		SDL_Delay(12);
+		SDL_Delay(32);
 	}
 
 	else
@@ -313,9 +318,12 @@ void updateScreen() // Actualise l'affichage de la fenêtre en fonction de l'ét
     case -1:                            // Affichage de la saisie du nom du joueur
         
         break;
-    case 1:                             // Affichage du jeu (Start Game)
-        addCars();
+    case 1:                             // Affichage du jeu (Start Game)        
+        for(int i =0; i < Game.Player.speed/20 +5; i++) {
+            addCars();
+        }
         moveTraffic();
+        doScore();
         drawImage(Game.Background[Game.backgroundFrame%11], 0, 0);
         drawInterface();
         drawPlayer();

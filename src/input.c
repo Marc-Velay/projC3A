@@ -49,7 +49,7 @@ void getInput()
     int mouy;	// coordonnées de la souris
     Game.Player.turnedLeft = 0;
     Game.Player.turnedRight = 0;
-    unsigned int frameLimit = SDL_GetTicks() + 45;
+    unsigned int frameLimit = SDL_GetTicks() + 30;
     SDL_GetMouseState(&moux,&mouy);	// rentre les coord en x et y de la souris dans les deux entiers moux et mouy
 
     if(in.key[SDLK_ESCAPE] || in.quit)
@@ -236,7 +236,7 @@ void getInput()
                 Game.backgroundFrame++;
                 delay(frameLimit);
                 UpdateEvents(&in);
-                frameLimit = SDL_GetTicks() + 45;
+                frameLimit = SDL_GetTicks() + 30;
             }
         }
 }

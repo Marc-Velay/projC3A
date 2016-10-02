@@ -4,7 +4,7 @@
 int main(int argc, char *argv[])
 {
 	int play = 1;
-	unsigned int frameLimit = SDL_GetTicks() + 45;
+	unsigned int frameLimit = SDL_GetTicks() + 30;
 
 
     while(play == 1){//Lance le jeu et boucle jusqu'à ce que l'utilisateur quitte le jeu
@@ -22,10 +22,10 @@ int main(int argc, char *argv[])
         {
 	        updateScreen();
 	        getInput();
-		Game.timer +=1;
-                Game.backgroundFrame++;
-		delay(frameLimit);
-		frameLimit = SDL_GetTicks() + 45;
+		    Game.timer +=1;
+            Game.backgroundFrame++;
+            delay(frameLimit);
+            frameLimit = SDL_GetTicks() + 30;
         }
 
     }
