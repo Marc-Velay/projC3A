@@ -5,7 +5,7 @@
 int isLineClear( int selectedLine) {
     for(int i = 0; i < MAX_NB_CARS; i++) {
             if(Game.Traffic[i].active == 1) {
-                    if(Game.Traffic[i].y == (FIRST_LANE + LANE_WIDTH*selectedLine) && Game.Traffic[i].x >= (SCREEN_WIDTH - CAR_WIDTH) && Game.Traffic[i].x <= (SCREEN_WIDTH - CAR_WIDTH*6/2)) {
+                    if(Game.Traffic[i].y == (FIRST_LANE + LANE_WIDTH*selectedLine) && Game.Traffic[i].x >= (SCREEN_WIDTH - CAR_WIDTH*2) && Game.Traffic[i].x <= (SCREEN_WIDTH + CAR_WIDTH*6/2)) {
                             return 0;
                     }
             } else {
@@ -53,6 +53,8 @@ void collision(int carID) {
         if(Game.Traffic[carID].y >= Game.Player.y && Game.Traffic[carID].y <= (Game.Player.y + CAR_HEIGHT) && (( Game.Traffic[carID].x >= Game.Player.x &&  Game.Traffic[carID].x <= (Game.Player.x + CAR_WIDTH))
             || ((Game.Traffic[carID].x + CAR_WIDTH) >= (Game.Player.x) && (Game.Traffic[carID].x + CAR_WIDTH) <= (Game.Player.x + CAR_WIDTH)))) {
             killcar(carID);
+            SDL_Delay(200);
+            Game.stade++;
         } else {
             for(int cars =0; cars < MAX_NB_CARS; cars++){
                 if(Game.Traffic[cars].active == 1 && cars != carID) {
@@ -82,6 +84,12 @@ void addCars() {
                 if(isLineClear(selectedLine) == 1 && selectedLine != Game.lastLanePoped) {
                         Game.lastLanePoped = selectedLine;
                         initCar(selectedLine);
+                } else if((selectedLine+1)<MAX_LINES && isLineClear(selectedLine +1) == 1 && (selectedLine+1) != Game.lastLanePoped ) {
+                        Game.lastLanePoped = selectedLine+1;
+                        initCar(selectedLine+1);
+                } else if((selectedLine-1)>0 && isLineClear(selectedLine-1) == 1 && (selectedLine-1) != Game.lastLanePoped) {
+                        Game.lastLanePoped = selectedLine-1;
+                        initCar(selectedLine-1);
                 }
     }
 }
@@ -91,7 +99,7 @@ void addCars() {
 void moveTraffic() {
     for(int carID =0; carID < MAX_NB_CARS; carID++) {
         if(Game.Traffic[carID].active == 1) {
-                Game.Traffic[carID].x -= ((Game.Player.speed +5)/10 - Game.Traffic[carID].speed);
+                Game.Traffic[carID].x -= ((Game.Player.speed +5)/8 - Game.Traffic[carID].speed);
                 
                 if(Game.Traffic[carID].x <= -5*CAR_WIDTH || Game.Traffic[carID].x >= SCREEN_WIDTH + 5*CAR_WIDTH) {
                     if(Game.Traffic[carID].x < 0) {

@@ -238,6 +238,13 @@ void getInput()
                 UpdateEvents(&in);
                 frameLimit = SDL_GetTicks() + 30;
             }
+        } else if(Game.stade == 0) {
+            if(in.mousebuttons[SDL_BUTTON_LEFT] && moux >730 && mouy > 790 && moux < 980 && mouy < 860) { //Position du bouton start game
+                Game.stade++;
+            }
+            if(in.mousebuttons[SDL_BUTTON_LEFT]) {
+                printf("x: %d, y: %d\n", moux, mouy);
+            }
         }
 }
     

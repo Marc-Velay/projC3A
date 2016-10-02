@@ -8,7 +8,7 @@
 #include "SDL/SDL_ttf.h"
 #include "SDL/SDL_mixer.h"
 
-#define MAX_SPRITES 4
+#define MAX_SPRITES 6
 
 #define SCREEN_WIDTH 1700		//Defini la taille de la fenetre
 #define SCREEN_HEIGHT 1080
@@ -91,7 +91,9 @@ enum{
     BACKGROUND_TOP,
     PLAYER_CAR,
     CAR1,
-    CAR2
+    CAR2,
+    GAMEOVER,
+    STARTGAME
 };
 
 

@@ -217,6 +217,8 @@ void loadAllSprites()       // Chargement de toutes les images utilisées dans l
     loadSprite(PLAYER_CAR, "img/playerCar.png");
     loadSprite(CAR1, "img/car1.png");
     loadSprite(CAR2, "img/car2.png");
+    loadSprite(GAMEOVER, "img/gameOver.png");
+    loadSprite(STARTGAME, "img/startGame.png");
     
 }
 
@@ -278,6 +280,8 @@ void drawInterface() {    // Affichage de l'interface d'information sur la carte
         sprintf(string,"%d", Game.nbActiveCars);
         drawText("NB cars active: ", 50, 75, Game.textFont,196,154,108);
         drawText(string, 150, 75, Game.textFont,196,154,108);
+    } else if(Game.stade == 2) {
+
     }
 }
 
@@ -312,16 +316,14 @@ void updateScreen() // Actualise l'affichage de la fenêtre en fonction de l'ét
     switch(Game.stade)
     {
     case 0:                             // Affichage du Menu
-        Game.stade=1;
+        drawImage(getSprite(STARTGAME), 0, 0);
         break;
 
     case -1:                            // Affichage de la saisie du nom du joueur
         
         break;
-    case 1:                             // Affichage du jeu (Start Game)        
-        for(int i =0; i < Game.Player.speed/20 +5; i++) {
-            addCars();
-        }
+    case 1:                             // Affichage du jeu (Start Game)      
+        addCars();        
         moveTraffic();
         doScore();
         drawImage(Game.Background[Game.backgroundFrame%11], 0, 0);
@@ -332,11 +334,8 @@ void updateScreen() // Actualise l'affichage de la fenêtre en fonction de l'ét
 
 
     case 2:                             // Affichage de fin de jeu (Game Over)
-        /*drawImage(getSprite(BACKGROUND_LAUNCH_SPRITE), 0, 0);
-        drawMenu("HIGHSCORE",0,20, SubTitleFont);
-        drawMenu("Play again?", 0, 120, SubTitleFont);
-        drawMenu("Quit", 0, 220, SubTitleFont);
-        drawMenuPointer();*/
+        drawImage(getSprite(GAMEOVER), 0, 0);
+        drawInterface();
         break;
     }
 
