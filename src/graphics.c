@@ -323,13 +323,14 @@ void updateScreen() // Actualise l'affichage de la fenêtre en fonction de l'ét
         
         break;
     case 1:                             // Affichage du jeu (Start Game)      
-        addCars();        
-        moveTraffic();
-        doScore();
+        
         drawImage(Game.Background[Game.backgroundFrame%11], 0, 0);
         drawInterface();
         drawPlayer();
         drawCars();
+        addCars();        
+        moveTraffic();
+        doScore();
         break;
 
 

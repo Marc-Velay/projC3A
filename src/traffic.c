@@ -53,7 +53,7 @@ void collision(int carID) {
         if(Game.Traffic[carID].y >= Game.Player.y && Game.Traffic[carID].y <= (Game.Player.y + CAR_HEIGHT) && (( Game.Traffic[carID].x >= Game.Player.x &&  Game.Traffic[carID].x <= (Game.Player.x + CAR_WIDTH))
             || ((Game.Traffic[carID].x + CAR_WIDTH) >= (Game.Player.x) && (Game.Traffic[carID].x + CAR_WIDTH) <= (Game.Player.x + CAR_WIDTH)))) {
             killcar(carID);
-            SDL_Delay(200);
+            SDL_Delay(1500);
             Game.stade++;
         } else {
             for(int cars =0; cars < MAX_NB_CARS; cars++){

@@ -20,7 +20,7 @@
 
 #define MAX_SPEED 400
 #define MIN_SPEED 50
-#define MAX_NB_CARS 20
+#define MAX_NB_CARS 15
 #define MAX_LINES 5
 
 #define AUTO_SPEED_INCREMENTS 10
