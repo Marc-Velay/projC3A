@@ -54,7 +54,7 @@ void collision(int carID) {
             || ((Game.Traffic[carID].x + CAR_WIDTH) >= (Game.Player.x) && (Game.Traffic[carID].x + CAR_WIDTH) <= (Game.Player.x + CAR_WIDTH)))) {
             killcar(carID);
             SDL_Delay(1500);
-            Game.stade++;
+            Game.stade=2;
         } else {
             for(int cars =0; cars < MAX_NB_CARS; cars++){
                 if(Game.Traffic[cars].active == 1 && cars != carID) {
@@ -99,7 +99,7 @@ void addCars() {
 void moveTraffic() {
     for(int carID =0; carID < MAX_NB_CARS; carID++) {
         if(Game.Traffic[carID].active == 1) {
-                Game.Traffic[carID].x -= ((Game.Player.speed +5)/8 - Game.Traffic[carID].speed);
+                Game.Traffic[carID].x -= ((Game.Player.speed +5)/8 - Game.Traffic[carID].speed); //move the cars at a relative speed
                 
                 if(Game.Traffic[carID].x <= -5*CAR_WIDTH || Game.Traffic[carID].x >= SCREEN_WIDTH + 5*CAR_WIDTH) {
                     if(Game.Traffic[carID].x < 0) {

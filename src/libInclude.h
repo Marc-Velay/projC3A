@@ -45,7 +45,7 @@ typedef struct Sprites          // structure des images (sprites)
 
 
 
-typedef struct player			// structure de Stephen
+typedef struct player			// structure du conducteur
 {
     char name[14];
     int speed;
@@ -54,7 +54,11 @@ typedef struct player			// structure de Stephen
     int nameInd;
     int turnedLeft;
     int turnedRight;
+    int carInFrontLastX;
+    int carToLeftLastX;
+    int carToRightlastX;
 } player;
+
 
 
 
@@ -130,6 +134,7 @@ void updateScreen();
 void initPlayer();
 void drawPlayer();
 void doScore();
+void playerAutoInput(Input *in);
 
 /*******traffic.c*************/
 void addCars();

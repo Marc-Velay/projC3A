@@ -338,6 +338,17 @@ void updateScreen() // Actualise l'affichage de la fenêtre en fonction de l'ét
         drawImage(getSprite(GAMEOVER), 0, 0);
         drawInterface();
         break;
+
+    case 3: 
+        drawImage(Game.Background[Game.backgroundFrame%11], 0, 0);
+        drawInterface();
+        drawPlayer();
+        drawCars();
+        addCars();        
+        moveTraffic();
+        doScore();
+
+        break;
     }
 
 
