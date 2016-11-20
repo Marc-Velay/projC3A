@@ -271,27 +271,10 @@ void getInput()
                 Game.Player.y -= LANE_WIDTH; 
         } else if(in.key[SDLK_DOWN]  && Game.Player.y < 750) {
                 Game.Player.y += LANE_WIDTH; 
-        }
-            
-        while(in.key[SDLK_LEFT] || in.key[SDLK_RIGHT]) {
-            if(in.key[SDLK_UP] && Game.Player.y > 300 && Game.Player.turnedLeft == 0) {
-                    Game.Player.y -= LANE_WIDTH;
-                    Game.Player.turnedLeft = 1;
-            } else if(in.key[SDLK_DOWN]  && Game.Player.y < 750 && Game.Player.turnedRight == 0) {
-                    Game.Player.y += LANE_WIDTH;
-                    Game.Player.turnedRight = 1; 
-            } else if(in.key[SDLK_RIGHT]  && Game.Player.speed < MAX_SPEED) {
-                    Game.Player.speed ++; 
-            } else if(in.key[SDLK_LEFT]  && Game.Player.speed > MIN_SPEED) {
-                    Game.Player.speed --; 
-            }
-            
-            updateScreen();
-            Game.timer +=1;
-            Game.backgroundFrame++;
-            delay(frameLimit);
-            UpdateEvents(&in);
-            frameLimit = SDL_GetTicks() + 30;
+        } else if(in.key[SDLK_RIGHT]  && Game.Player.speed < 150) {
+                Game.Player.speed ++; 
+        } else if(in.key[SDLK_LEFT]  && Game.Player.speed > 40) {
+                Game.Player.speed -=4; 
         }
     }
 }

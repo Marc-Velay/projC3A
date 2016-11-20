@@ -27,7 +27,7 @@ int getCarLeft() {
 
     for(int carID =0; carID < MAX_NB_CARS; carID++) {
         if(Game.Traffic[carID].y == Game.Player.y - LANE_WIDTH) {
-            if(Game.Traffic[carID].x > PLAYER_INIT_X + CAR_WIDTH && Game.Traffic[carID].x < closestLeft) closestLeft = Game.Traffic[carID].x; 
+            if(Game.Traffic[carID].x > PLAYER_INIT_X-CAR_WIDTH && Game.Traffic[carID].x < closestLeft) closestLeft = Game.Traffic[carID].x; 
         }
     }
 
@@ -39,7 +39,7 @@ int getCarRight() {
 
     for(int carID =0; carID < MAX_NB_CARS; carID++) {
         if(Game.Traffic[carID].y == Game.Player.y + LANE_WIDTH) {
-            if(Game.Traffic[carID].x > PLAYER_INIT_X+CAR_WIDTH && Game.Traffic[carID].x < closestRight) closestRight = Game.Traffic[carID].x; 
+            if(Game.Traffic[carID].x > PLAYER_INIT_X-CAR_WIDTH && Game.Traffic[carID].x < closestRight) closestRight = Game.Traffic[carID].x; 
         }
     }
 
@@ -51,19 +51,11 @@ int getCarFront() {
 
     for(int carID =0; carID < MAX_NB_CARS; carID++) {
         if(Game.Traffic[carID].y == Game.Player.y) {
-            if(Game.Traffic[carID].x > PLAYER_INIT_X+CAR_WIDTH && Game.Traffic[carID].x < closestCenter) closestCenter = Game.Traffic[carID].x; 
+            if(Game.Traffic[carID].x > PLAYER_INIT_X-CAR_WIDTH-10 && Game.Traffic[carID].x < closestCenter) closestCenter = Game.Traffic[carID].x; 
         }
     }
 
     return closestCenter;
-}
-
-int isLaneClear(int dir) {
-    if(dir == -1 && Game.Player.y == FIRST_LANE) return 0;
-    if(dir == 1 && Game.Player.y == FIRST_LANE + NB_LANE*LANE_WIDTH) return 0;
-    //TODO: are player.y + dir*line width + car size clear?
-
-    return 0;
 }
 
 void playerAutoInput(Input *in) {
@@ -72,18 +64,24 @@ void playerAutoInput(Input *in) {
     int carRightX = getCarRight();
     int carCenterX = getCarFront();
 
-    if(carLeftX > carCenterX) {
-        if(isLaneClear(-1) == 1) {
+    printf("left: %d, center: %d, right: %d\n", carLeftX, carCenterX, carRightX);
+
+
+    if(carLeftX > carCenterX && Game.Player.y != FIRST_LANE) {
             (*in).key[SDLK_UP] = 1;
             printf("go left\n");
-        }
-    } else if(carCenterX > carLeftX && carCenterX > carRightX) {
-        //printf("stay in line\n");
-    } else if(carRightX > carCenterX) {
-        if(isLaneClear(1) == 1) {
+    } else 
+     if(carRightX > carCenterX) {
             (*in).key[SDLK_DOWN] = 1;
             printf("go right\n");
-        }
+    }
+
+    if(carCenterX > PLAYER_INIT_X + 3*CAR_WIDTH) {
+        (*in).key[SDLK_RIGHT] = 1;
+        printf("accelerate to %d\n", Game.Player.speed);
+    } else if(carCenterX < PLAYER_INIT_X + 3*CAR_WIDTH) {
+        (*in).key[SDLK_LEFT] = 1;
+        printf("decelerate\n");
     }
 
     Game.Player.carInFrontLastX = carCenterX;
