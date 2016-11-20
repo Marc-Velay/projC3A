@@ -3,7 +3,7 @@
 void initPlayer()   // Initialisation des variables dde la voiture au début du jeu (Start Game)
 {
     Game.Player.sprite = getSprite(PLAYER_CAR); // Chargement de l'image du personnage
-    Game.Player.x = 30;      // Positionnement du personnage
+    Game.Player.x = PLAYER_INIT_X;      // Positionnement du personnage
     Game.Player.y = MID_LANE;
     Game.Player.speed = 100;
     Game.Player.carInFrontLastX = 0;
@@ -22,20 +22,71 @@ void doScore() {
     Game.score += Game.Player.speed/150;
 }
 
-void playerAutoInput(Input *in) {
-    //modifiable: SDLK_DOWN, UP, LEFT, RIGHT
-    (*in).key[SDLK_DOWN] =1;
-    if(Game.Player.y == MID_LANE + 2*LANE_WIDTH) {
-        (*in).key[SDLK_UP]=1;
-    }
-    if(Game.Player.x == MID_LANE - 2*LANE_WIDTH) {
-        (*in).key[SDLK_DOWN]=1;
-    } else {
-        int dir = rand() %2;
-        if(dir == 0) {
-            (*in).key[SDLK_UP]=1;            
-        } else if(dir == 1) {
-            (*in).key[SDLK_DOWN]=1;
+int getCarLeft() {
+    int closestLeft=10000;
+
+    for(int carID =0; carID < MAX_NB_CARS; carID++) {
+        if(Game.Traffic[carID].y == Game.Player.y - LANE_WIDTH) {
+            if(Game.Traffic[carID].x > PLAYER_INIT_X + CAR_WIDTH && Game.Traffic[carID].x < closestLeft) closestLeft = Game.Traffic[carID].x; 
         }
     }
+
+    return closestLeft;
+}
+
+int getCarRight() {
+    int closestRight=10000;
+
+    for(int carID =0; carID < MAX_NB_CARS; carID++) {
+        if(Game.Traffic[carID].y == Game.Player.y + LANE_WIDTH) {
+            if(Game.Traffic[carID].x > PLAYER_INIT_X+CAR_WIDTH && Game.Traffic[carID].x < closestRight) closestRight = Game.Traffic[carID].x; 
+        }
+    }
+
+    return closestRight;
+}
+
+int getCarFront() {
+    int closestCenter=10000;
+
+    for(int carID =0; carID < MAX_NB_CARS; carID++) {
+        if(Game.Traffic[carID].y == Game.Player.y) {
+            if(Game.Traffic[carID].x > PLAYER_INIT_X+CAR_WIDTH && Game.Traffic[carID].x < closestCenter) closestCenter = Game.Traffic[carID].x; 
+        }
+    }
+
+    return closestCenter;
+}
+
+int isLaneClear(int dir) {
+    if(dir == -1 && Game.Player.y == FIRST_LANE) return 0;
+    if(dir == 1 && Game.Player.y == FIRST_LANE + NB_LANE*LANE_WIDTH) return 0;
+    //TODO: are player.y + dir*line width + car size clear?
+
+    return 0;
+}
+
+void playerAutoInput(Input *in) {
+    //modifiable: SDLK_DOWN, UP, LEFT, RIGHT
+    int carLeftX = getCarLeft();
+    int carRightX = getCarRight();
+    int carCenterX = getCarFront();
+
+    if(carLeftX > carCenterX) {
+        if(isLaneClear(-1) == 1) {
+            (*in).key[SDLK_UP] = 1;
+            printf("go left\n");
+        }
+    } else if(carCenterX > carLeftX && carCenterX > carRightX) {
+        //printf("stay in line\n");
+    } else if(carRightX > carCenterX) {
+        if(isLaneClear(1) == 1) {
+            (*in).key[SDLK_DOWN] = 1;
+            printf("go right\n");
+        }
+    }
+
+    Game.Player.carInFrontLastX = carCenterX;
+    Game.Player.carToLeftLastX = carLeftX;
+    Game.Player.carToRightlastX = carRightX;
 }

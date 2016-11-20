@@ -13,8 +13,10 @@
 #define SCREEN_WIDTH 1700		//Defini la taille de la fenetre
 #define SCREEN_HEIGHT 1080
 #define LANE_WIDTH 120
-#define FIRST_LANE 278
+#define FIRST_LANE 274
 #define MID_LANE 514
+#define NB_LANE 5
+#define PLAYER_INIT_X 30
 #define CAR_HEIGHT 50
 #define CAR_WIDTH 95
 
