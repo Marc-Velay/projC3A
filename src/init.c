@@ -42,6 +42,7 @@ void init(char *title)              // Initialisation de la fenêtre, des biblio
     Game.timer = 0;
     Game.nbActiveCars = 0;
     Game.score =0;
+    Game.bestScore=0;
     Game.firstFreeID = 100;
 	Game.lastLanePoped =0;
     for(int carID = 0; carID < MAX_NB_CARS; carID++) {

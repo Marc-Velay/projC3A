@@ -8,7 +8,7 @@
 #include "SDL/SDL_ttf.h"
 #include "SDL/SDL_mixer.h"
 
-#define MAX_SPRITES 6
+#define MAX_SPRITES 8
 
 #define SCREEN_WIDTH 1700		//Defini la taille de la fenetre
 #define SCREEN_HEIGHT 1080
@@ -84,11 +84,13 @@ typedef struct game			//toutes les variables du rungame, utilisee pour faire tou
     int firstFreeID;
     int lastLanePoped;
     unsigned int score;
+    unsigned int bestScore;
     Sprites sprite[MAX_SPRITES];
     player Player;
     car Traffic[MAX_NB_CARS];
     SDL_Surface *screen, *Background[11], *Text;  //initialise les surfaces de la fenetre, fond et où on affiche le texte
     TTF_Font *textFont; /****** pointeurs de polices *****/
+    TTF_Font *textFont2; /****** pointeurs de polices *****/
 } game;
 
 
@@ -99,7 +101,9 @@ enum{
     CAR1,
     CAR2,
     GAMEOVER,
-    STARTGAME
+    STARTGAME,
+    BOOM,
+    COMMANDS
 };
 
 
@@ -136,6 +140,7 @@ void updateScreen();
 void initPlayer();
 void drawPlayer();
 void doScore();
+void doBestScore();
 void playerAutoInput(Input *in);
 
 /*******traffic.c*************/

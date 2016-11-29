@@ -53,6 +53,7 @@ void collision(int carID) {
         if(Game.Traffic[carID].y >= Game.Player.y && Game.Traffic[carID].y <= (Game.Player.y + CAR_HEIGHT) && (( Game.Traffic[carID].x >= Game.Player.x &&  Game.Traffic[carID].x <= (Game.Player.x + CAR_WIDTH))
             || ((Game.Traffic[carID].x + CAR_WIDTH) >= (Game.Player.x) && (Game.Traffic[carID].x + CAR_WIDTH) <= (Game.Player.x + CAR_WIDTH)))) {
             killcar(carID);
+            drawImage(getSprite(BOOM), Game.Player.x, Game.Player.y-50);
             SDL_Delay(1500);
             Game.stade=2;
         } else {

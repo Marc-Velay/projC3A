@@ -51,7 +51,7 @@ int getCarFront() {
 
     for(int carID =0; carID < MAX_NB_CARS; carID++) {
         if(Game.Traffic[carID].y == Game.Player.y) {
-            if(Game.Traffic[carID].x > PLAYER_INIT_X-CAR_WIDTH-10 && Game.Traffic[carID].x < closestCenter) closestCenter = Game.Traffic[carID].x; 
+            if(Game.Traffic[carID].x > PLAYER_INIT_X-CAR_WIDTH-15 && Game.Traffic[carID].x < closestCenter) closestCenter = Game.Traffic[carID].x; 
         }
     }
 
@@ -87,4 +87,10 @@ void playerAutoInput(Input *in) {
     Game.Player.carInFrontLastX = carCenterX;
     Game.Player.carToLeftLastX = carLeftX;
     Game.Player.carToRightlastX = carRightX;
+}
+
+void doBestScore(){
+	if(Game.bestScore < Game.score){
+		Game.bestScore = Game.score;
+	}
 }

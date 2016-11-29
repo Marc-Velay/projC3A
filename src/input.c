@@ -244,26 +244,28 @@ void getInput()
             frameLimit = SDL_GetTicks() + 30;
         }
 
-
-
-
-    } else if(Game.stade == 0) {    //menu
-        if(in.mousebuttons[SDL_BUTTON_LEFT] && moux >730 && mouy > 790 && moux < 980 && mouy < 860) { //Position du bouton start game
+    } else if(Game.stade == 0) {
+        if(in.mousebuttons[SDL_BUTTON_LEFT] && moux >750 && mouy >660  && moux < 1000 && mouy < 730) { //Position du bouton start game
             Game.stade++;
         }
-        if(in.mousebuttons[SDL_BUTTON_LEFT]) {
-            printf("x: %d, y: %d\n", moux, mouy);
-        }
-        if(in.key[SDLK_o]) {
+        if(in.mousebuttons[SDL_BUTTON_LEFT] && moux >750 && mouy >750  && moux < 1000 && mouy < 820) { //Position du bouton automatic
             Game.stade=3;
         }
+        if(in.mousebuttons[SDL_BUTTON_LEFT] && moux >750 && mouy >830  && moux < 1000 && mouy < 900) { //Position du bouton commandes
+            Game.stade=4;
+            
+        }
+        /*if(in.key[SDLK_o]) {
+            Game.stade=3;
+        }*/
 
 
 
     } else if(Game.stade == 2){
-
-
-
+        if(in.mousebuttons[SDL_BUTTON_LEFT] && moux >650 && mouy >710  && moux < 1050 && mouy < 800) { //Position du bouton rejouer
+            Game.stade=0;
+            init("Road rager");
+        }
     } else if(Game.stade == 3) {    //mode automatique
         memset(&in,0,sizeof(in));
         playerAutoInput(&in);
@@ -275,6 +277,15 @@ void getInput()
                 Game.Player.speed ++; 
         } else if(in.key[SDLK_LEFT]  && Game.Player.speed > 40) {
                 Game.Player.speed -=4; 
+        }
+    } else if(Game.stade==2){
+        if(in.mousebuttons[SDL_BUTTON_LEFT] && moux >650 && mouy >710  && moux < 1050 && mouy < 800) { //Position du bouton rejouer
+            Game.stade=0;
+            init("Road rager");
+        }
+    } else if(Game.stade ==4){
+        if(in.mousebuttons[SDL_BUTTON_LEFT] && moux >40 && mouy >20  && moux < 180 && mouy < 150) { //Position du bouton retour
+            Game.stade=0;
         }
     }
 }

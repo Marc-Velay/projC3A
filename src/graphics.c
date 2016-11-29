@@ -197,12 +197,8 @@ void freeSprites()
 
 void loadAllSprites()       // Chargement de toutes les images utilisées dans le programme et les polices d'écriture
 {
-    /*TitleFont = loadFont("sfd/PIXEL.ttf", 90);
-    SubTitleFont = loadFont("sfd/PIXEL.ttf", 50);
-    compteurFont = loadFont("sfd/PIXEL.ttf", 30);
-    ClassicFont = loadFont("sfd/PIXEL.ttf", 40);*/
-    printf("loading\n");
-    Game.textFont = loadFont("fonts/FreeSans.ttf", 15);
+    Game.textFont = loadFont("fonts/Blazed.ttf", 15);
+    Game.textFont2 = loadFont("fonts/Minecrafter.Alt.ttf", 35);
     Game.Background[0] = loadImageFULL("img/road1.png");
     Game.Background[1] = loadImageFULL("img/road2.png");
     Game.Background[2] = loadImageFULL("img/road3.png");
@@ -219,6 +215,8 @@ void loadAllSprites()       // Chargement de toutes les images utilisées dans l
     loadSprite(CAR2, "img/car2.png");
     loadSprite(GAMEOVER, "img/gameOver.png");
     loadSprite(STARTGAME, "img/startGame.png");
+    loadSprite(BOOM, "img/crash.xcf");
+    loadSprite(COMMANDS, "img/commandes.png");
     
 }
 
@@ -230,9 +228,9 @@ void drawText(char *text, int x, int y, TTF_Font *textFont, int r, int g, int b)
 
     /* White text on a black background */
 
-    foregroundColor.r = 0;
-    foregroundColor.g = 0;
-    foregroundColor.b = 0;
+    foregroundColor.r = 255;
+    foregroundColor.g = 255;
+    foregroundColor.b = 255;
 
     backgroundColor.r = r;
     backgroundColor.g = g;
@@ -270,16 +268,19 @@ void drawInterface() {    // Affichage de l'interface d'information sur la carte
         
     if(Game.stade == 1) {
         sprintf(string,"%d", Game.Player.speed);
-        drawText("Speed: ", 50, 25, Game.textFont,196,154,108);
-        drawText(string, 100, 25, Game.textFont,196,154,108);
-
+        drawText(string, 180, 80, Game.textFont2,0,0,0);
+	
+	    sprintf(string,"%d", Game.bestScore);
+        drawText("Best Score: ", 480, 40, Game.textFont2,196,154,108);
+        drawText(string, 900, 40, Game.textFont2,196,154,108);
+        
         sprintf(string,"%d", Game.score);
-        drawText("Score: ", 50, 50, Game.textFont,196,154,108);
-        drawText(string, 100, 50, Game.textFont,196,154,108);
+        drawText("Your Score: ", 480, 75, Game.textFont2,196,154,108);
+        drawText(string, 900, 75, Game.textFont2,196,154,108);
 
         sprintf(string,"%d", Game.nbActiveCars);
-        drawText("NB cars active: ", 50, 75, Game.textFont,196,154,108);
-        drawText(string, 150, 75, Game.textFont,196,154,108);
+        drawText("NB cars active: ", 1400, 90, Game.textFont,196,154,108);
+        drawText(string, 1600, 90, Game.textFont,196,154,108);
     } else if(Game.stade == 2) {
 
     }
@@ -331,6 +332,7 @@ void updateScreen() // Actualise l'affichage de la fenêtre en fonction de l'ét
         addCars();        
         moveTraffic();
         doScore();
+        doBestScore();
         break;
 
 
@@ -349,6 +351,11 @@ void updateScreen() // Actualise l'affichage de la fenêtre en fonction de l'ét
         doScore();
 
         break;
+
+    case 4:				// Affichage des commandes (COMMANDS)
+    	drawImage(getSprite(COMMANDS), 0, 0);
+        
+    	break;
     }
 
 
