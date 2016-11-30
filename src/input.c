@@ -273,7 +273,7 @@ void getInput()
         }
 
     } else if(Game.stade == 0) {
-        if(in.mousebuttons[SDL_BUTTON_LEFT] && moux >750 && mouy >660  && moux < 1000 && mouy < 730) { //Position du bouton start game
+        if((in.mousebuttons[SDL_BUTTON_LEFT] && moux >750 && mouy >660  && moux < 1000 && mouy < 730) || in.key[SDLK_RETURN]) { //Position du bouton start game
             Game.stade++;
         }
         if(in.mousebuttons[SDL_BUTTON_LEFT] && moux >750 && mouy >750  && moux < 1000 && mouy < 820) { //Position du bouton automatic
