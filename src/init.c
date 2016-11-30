@@ -51,10 +51,8 @@ void init(char *title)              // Initialisation de la fenêtre, des biblio
     loadAllSprites();
     loadAllMusic();
     initPlayer();
+    Mix_PlayMusic(Game.music, -1);
     
-    /*
-    getScore();
-    Mix_PlayMusic(musiqueMenu, -1); // Lancement de la musique du menu*/
 
 /*************************Initalisation des variables utiles au début du jeu*****************************/
 }

@@ -91,6 +91,7 @@ typedef struct game			//toutes les variables du rungame, utilisee pour faire tou
     SDL_Surface *screen, *Background[11], *Text;  //initialise les surfaces de la fenetre, fond et où on affiche le texte
     TTF_Font *textFont; /****** pointeurs de polices *****/
     TTF_Font *textFont2; /****** pointeurs de polices *****/
+    Mix_Music *music;
 } game;
 
 
@@ -149,3 +150,7 @@ void moveTraffic();
 void drawCars();
 int isLineClear( int selectedLine);
 void initCar(int selectedLine);
+
+/*******sound.c*************/
+void loadAllMusic();
+void freeMusic();
