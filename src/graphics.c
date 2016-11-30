@@ -266,21 +266,21 @@ void drawText(char *text, int x, int y, TTF_Font *textFont, int r, int g, int b)
 void drawInterface() {    // Affichage de l'interface d'information sur la carte
 	char string[20] ;
         
-    if(Game.stade == 1) {
+    if(Game.stade == 1 || Game.stade == 3) {
         sprintf(string,"%d", Game.Player.speed);
         drawText(string, 180, 80, Game.textFont2,0,0,0);
 	
-	    sprintf(string,"%d", Game.bestScore);
+	    /*sprintf(string,"%d", Game.bestScore);
         drawText("Best Score: ", 480, 40, Game.textFont2,196,154,108);
-        drawText(string, 900, 40, Game.textFont2,196,154,108);
+        drawText(string, 900, 40, Game.textFont2,196,154,108);*/
         
         sprintf(string,"%d", Game.score);
         drawText("Your Score: ", 480, 75, Game.textFont2,196,154,108);
         drawText(string, 900, 75, Game.textFont2,196,154,108);
 
-        sprintf(string,"%d", Game.nbActiveCars);
+        /*sprintf(string,"%d", Game.nbActiveCars);
         drawText("NB cars active: ", 1400, 90, Game.textFont,196,154,108);
-        drawText(string, 1600, 90, Game.textFont,196,154,108);
+        drawText(string, 1600, 90, Game.textFont,196,154,108);*/
     } else if(Game.stade == 2) {
 
     }
@@ -349,6 +349,7 @@ void updateScreen() // Actualise l'affichage de la fenêtre en fonction de l'ét
         addCars();        
         moveTraffic();
         doScore();
+        doBestScore();
 
         break;
 

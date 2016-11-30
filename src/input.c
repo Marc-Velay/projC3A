@@ -38,6 +38,25 @@ void UpdateEvents(Input* in)
 }
 
 
+void pause() {
+    Input in;    
+    unsigned int frameLimit = SDL_GetTicks() + 30;
+    while(in.key[SDLK_p] != 1) {
+        memset(&in,0,sizeof(in));
+        UpdateEvents(&in);
+
+        if(in.key[SDLK_ESCAPE] || in.quit)
+        {
+            printf("quitting game\n");
+            SDL_Quit();
+            exit(0);
+        }
+        delay(frameLimit);
+        frameLimit = SDL_GetTicks() + 30;
+    }
+}
+    
+
 //Gère les intéractions du joueur avec le jeu (navigation dans le menu, poser tourelle, tirer, ecrire son nom...)
 void getInput()
 {
@@ -47,9 +66,18 @@ void getInput()
 
     if(in.key[SDLK_ESCAPE] || in.quit)
     {
-        printf("quitting game\n");
-	    SDL_Quit();
-	    exit(0);
+        if(Game.stade == 3) {
+            Game.stade=0;
+            init("Road rager");
+        } else {
+            printf("quitting game\n");
+            SDL_Quit();
+            exit(0);
+        }
+    }
+
+    if(in.key[SDLK_p] && (Game.stade == 1 || Game.stade == 3)) {
+        pause();
     }
 
     int moux;
@@ -278,16 +306,12 @@ void getInput()
         } else if(in.key[SDLK_LEFT]  && Game.Player.speed > 40) {
                 Game.Player.speed -=4; 
         }
-    } else if(Game.stade==2){
-        if(in.mousebuttons[SDL_BUTTON_LEFT] && moux >650 && mouy >710  && moux < 1050 && mouy < 800) { //Position du bouton rejouer
+    }else if(Game.stade ==4){
+        if(in.mousebuttons[SDL_BUTTON_LEFT] && moux >40 && mouy >20  && moux < 180 && mouy < 150) { //Position du bouton retour
             Game.stade=0;
             init("Road rager");
         }
-    } else if(Game.stade ==4){
-        if(in.mousebuttons[SDL_BUTTON_LEFT] && moux >40 && mouy >20  && moux < 180 && mouy < 150) { //Position du bouton retour
-            Game.stade=0;
-        }
     }
 }
-    
+
 
